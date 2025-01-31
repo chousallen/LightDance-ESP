@@ -13,8 +13,8 @@
 
 uint8_t pixels[3*3] = {
     0, 0, 255,
-    255, 0, 0,
-    0, 255, 0
+    0, 0, 0,
+    0, 0, 0
 };
 
 void rotate_pixels(uint8_t *pixels, size_t len)
@@ -28,10 +28,9 @@ void rotate_pixels(uint8_t *pixels, size_t len)
 extern "C" void app_main(void)
 {
     LedStrip led_strip(LED_STRIP_GPIO_NUM, 3);
-    while (1)
-    {
-        led_strip.show(pixels);
-        rotate_pixels(pixels, 3);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-    }
+    
+    led_strip.show(pixels);
+    //rotate_pixels(pixels, 3);
+    vTaskDelay(pdMS_TO_TICKS(1000));
+    
 }

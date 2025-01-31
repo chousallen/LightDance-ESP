@@ -20,9 +20,14 @@ class LedStrip
     const uint8_t len;
     LedStrip(gpio_num_t _gpio_num, uint8_t _len);
     ~LedStrip();
-    void show(const uint8_t *_pixels) const;
+    void show(const uint8_t *_pixels);
 
     private:
+    // config
+    rmt_tx_channel_config_t tx_chan_config;
+    led_strip_encoder_config_t encoder_config;
+    rmt_transmit_config_t tx_config;
+    // handler
     rmt_channel_handle_t led_chan;
     rmt_encoder_handle_t led_encoder;
     //static const rmt_transmit_config_t tx_config;
