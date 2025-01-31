@@ -11,11 +11,14 @@
 
 #define LED_STRIP_GPIO_NUM GPIO_NUM_0
 
-uint8_t pixels[3*3] = {
-    0, 0, 255,
-    0, 0, 0,
+uint8_t color_mask[9] = 
+{ //g, r, b
+    0, 0, 1,
+    1, 0, 0,
     0, 0, 0
 };
+
+uint8_t pixels[3*3];
 
 void rotate_pixels(uint8_t *pixels, size_t len)
 {
@@ -29,8 +32,19 @@ extern "C" void app_main(void)
 {
     LedStrip led_strip(LED_STRIP_GPIO_NUM, 3);
     
-    led_strip.show(pixels);
-    //rotate_pixels(pixels, 3);
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    uint8_t bright = 0;
+    while (true)
+    {
+        for (int i = 0; i < 3*3; i++)
+        {
+            pixels[i] = color_mask[i] * bright;
+        }
+        
+        led_strip.show(pixels);
+        bright ++;
+        bright %= 256;
+        vTaskDelay(pdMS_TO_TICKS(10));
+    }
+    
     
 }

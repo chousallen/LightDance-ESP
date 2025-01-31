@@ -20,17 +20,16 @@ class LedStrip
     const uint8_t len;
     LedStrip(gpio_num_t _gpio_num, uint8_t _len);
     ~LedStrip();
+    /* the _pixels is an array of uint8_t, 
+    each led is determined by 3 uint8_t which control the brightness of green, red, and blue in order. 
+    the first 3 uint8_t determine the first led, the second 3 uint8_t determin the second led, and so on.*/
     void show(const uint8_t *_pixels);
 
     private:
-    // config
-    rmt_tx_channel_config_t tx_chan_config;
-    led_strip_encoder_config_t encoder_config;
-    rmt_transmit_config_t tx_config;
     // handler
     rmt_channel_handle_t led_chan;
     rmt_encoder_handle_t led_encoder;
-    //static const rmt_transmit_config_t tx_config;
+    static const rmt_transmit_config_t tx_config;
 };
 
 #endif // _LED_STRIP_HPP_
